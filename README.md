@@ -1,2 +1,76 @@
 # Reto-6
-Solución reto 6
+<p>
+  Los siguientes ejercicios corresponden al reto 1 del curso, sin embargo, algunos de ellos presentan excepciones, bien sean las predeterminadas por python, o alguna personalizada según la necesidad del ejercicio.
+</p>  
+
+<p>
+1. Crear una función que realice operaciones básicas (suma, resta, multiplicación, división) entre dos números, según la elección del usuario, la forma de entrada de la función será los dos operandos y el caracter usado para la operación. entrada: (1,2,"+"), salida (3).
+</p>
+
+- **Solución**:
+```python
+  #Único error personalizado
+  class NegativeNumberError(Exception):
+    def __init__(self,n):
+      super().__init__(f"El número ingresado: ({n}) no es positivo.")
+  	
+  	#Se define modularmente los mensajes de bienvenida, solicitud de número y string.
+  	def initial_msg():
+  	    print("Buen día. De una lista de palabras que ingrese, le indico cuáles de ellas contienen las mismas letras.")
+  	
+  	def final_msg():
+  	    print("Programa finalizado, hasta pronto.")
+  	
+  	def ask_str(msg):
+  	    m=str(input(msg))
+  	    return m
+  	
+  #Implementación del error creado previamente.
+  def ask_num(msg):
+      while True:
+      try:
+        n = int(input(msg))
+        if n < 0:
+          raise NegativeNumberError
+          return n
+        except ValueError:
+          print("Recuerde, debe ser un número entero válido.")
+        except NegativeNumberError as e:
+          print(e)
+      return n
+  	
+  	#Se insertan las palabras en una lista
+  	def create_list():
+  	    lista=ask_num("¿Cuántas palabras va a ingresar? ")
+  	    li=[]
+  	    for x in range(lista):
+  	        w=ask_str(f"Palabra # {x+1}: ")
+  	        li.append(w)
+  	    return li
+  	
+  	#Se recorre la lista y palabra. Sorted es la clave, pues ordena los caracteres alfabéticamente y se permite su comparación
+  	#Hay doble for, pues recorre todas las posibles combinaciones que existan dentro de la lista
+  	#Devuelve la lista de palabras que contienen las mismas letras
+  	def check_word(li):
+  	    final=[]
+  	    l=len(li)
+  	    for x in range(l):
+  	        for y in range(x+1, len(li)):
+  	                if sorted(li[x])==sorted(li[y]):
+  	                    final.append((li[x], li[y]))
+  	    return final
+  	
+  	#Se agrupa todo en el main
+  	def main():
+  	    initial_msg()
+  	    lista = create_list()
+  	    resultado = check_word(lista)
+  	    if len(resultado) == 0:
+  	        print("No hay palabras que contengan las mismas letras.")
+  	    else:
+  	        print("Las palabras que contienen las mismas letras son:")
+  	        for par in resultado:
+  	            print(par[0], "y", par[1])
+  	    final_msg()
+  	main()
+```
