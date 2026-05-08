@@ -1,0 +1,83 @@
+		#Los comentarios indicarán cómo se llegó a la solución
+
+		#Modularmente, se definen funciones para tareas como pedir número, mensajes de bienvenida/despedida
+		def askStr(msj):
+			m=str(input(msj))
+			return(m)
+
+		def askNumber(msj):
+		  while True:
+		    try:
+		      n = float(input(msj))
+		      return n
+		    except ValueError:
+			    print ("Debe ingresar un número, no otro tipo de dato.")
+
+		def finalMsg():
+			print("\nTAREA FINALIZADA")
+
+		#Se definen modularmente las operaciones
+		def suma (a,b):
+			return(a+b)
+
+		def difference (a,b):
+			return (a-b)
+
+		def division (a,b):
+			try:
+				return (a/b)
+			except ZeroDivisionError:
+				return ("No es válida la división por 0.")
+
+		def multip (a,b):
+			return(a*b)
+
+		#Se crea un menú donde el usuario podrá escoger la operación a realizar, se tiene en cuenta el caso donde la opción sea equivocada-
+		def menu ():
+			print("***********************")
+			print("CALCULADORA")
+			print("***********************")
+			print("Según la operacion a realizar, ingrese el signo que se encuentra al inicio:")
+			print ("+. Sumar")
+			print ("-. Restar")
+			print ("*. Multiplicar")
+			print ("/. Dividir")
+			print ("5. Salir")
+			opc=7
+			while True:
+			  opc = askStr("\nIngrese una opción del menú:")
+				if opc in ["+", "-", "*", "/", "5"]:
+					return(opc)
+				else:
+					print("La opción no está contenida en las operaciones disponibles.")
+
+		#Operaciones básicas        
+		def operaciones(n, a, b):
+			if (n=="+"):
+				s=suma(a,b)
+				print("\n El resultado es:", s)
+			if (n=="-"):
+				d=difference(a,b)
+				print("\n El resultado es:", d)
+			if (n=="*"):
+				m=multip(a,b)
+				print("\n El resultado es:", m)
+			if (n=="/"):
+				d=division(a,b)
+				print("\n El resultado es:", d)
+			if (n=="5"):
+				print("\n Ok, tenga buen día.")
+
+		#Se agrupa todo en el main
+		def main():
+			while 1:
+				opc= menu()
+				if opc=="5":
+					print("\n Ok, tenga buen día.")
+					break
+				if opc in ["+", "-", "*", "/"]:
+					a= askNumber("\n Ingrese a:")
+					b= askNumber("\n Ingrese b:")
+					operaciones(opc, a, b)
+			finalMsg()
+		main()
