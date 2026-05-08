@@ -198,140 +198,143 @@ def main():
     final_msg()
 main()
 ```
+
 <p>
 4. Escribir una función que reciba una lista de números enteros y retorne la mayor suma entre dos elementos consecutivos.
 </p>
+
 ```python
-#Único error personalizado
-class NegativeNumberError(Exception):
-  def __init__(self,n):
-    super().__init__(f"El número ingresado: ({n}) no es positivo.")
-    
-#Se define modularmente los mensajes de bienvenida y solicitud de número
-def initial_msg():
-    print("Buen día, recibo una lista de números enteros y le indico cuál es la mayor suma entre dos elementos consecutivos.")
-
-def final_msg():
-    print("Programa finalizado, hasta pronto.")
-
-#Implementación del error creado previamente.
-def ask_num(msg):
-    while True:
-    try:
-      n = int(input(msg))
-      if n < 0:
-        raise NegativeNumberError
-        return n
-      except ValueError:
-        print("Recuerde, debe ser un número entero válido.")
-      except NegativeNumberError as e:
-        print(e)
-    return n
-
-#Dado que el ejercicio retorna la mayor suma entre dos elementos consecutivos, es necesario verificar que al menos se ingresen 2 números
-def create_list():
-    lista=ask_num("¿Cuántos números va a ingresar? ")  
-    while lista<2:
-        print("Debe ingresar al menos 2 números.")
-        lista=ask_num("¿Cuántos números va a ingresar?: ")
-    li = []
-    for x in range(lista):
-        num=ask_num(f"Número # {x+1}: ")
-        li.append(num)
-    return li
-
-#Se recorre la lista tomando los primeros dos elementos. Si existen una suma de otros dos números mayor que la anterior, se reeemplaza.
-#La función devuelve los dos números y su respectiva suma
-def check_sum(li):
-    i=li[0]+li[1]
-    num1=li[0]
-    num2=li[1]
-    for x in range(len(li)-1):
-        suma=li[x]+li[x+1]
-        if suma>i:
-            i=suma
-            num1=li[x]
-            num2=li[x+1]
-    return (i, num1, num2)
-
-def give_info(info):
-    print("La mayor suma encontrada corresponde a ", info[0],", la cual resulta de los números", info[1], "y", info[2], ".")
-#Se agrupa todo en un main
-def main():
-    initial_msg()
-    li = create_list()
-    info = check_sum(li)
-    give_info(info)
-    final_msg()
-main()
+	#Único error personalizado
+	class NegativeNumberError(Exception):
+	  def __init__(self,n):
+	    super().__init__(f"El número ingresado: ({n}) no es positivo.")
+	    
+	#Se define modularmente los mensajes de bienvenida y solicitud de número
+	def initial_msg():
+	    print("Buen día, recibo una lista de números enteros y le indico cuál es la mayor suma entre dos elementos consecutivos.")
+	
+	def final_msg():
+	    print("Programa finalizado, hasta pronto.")
+	
+	#Implementación del error creado previamente.
+	def ask_num(msg):
+	    while True:
+	    try:
+	      n = int(input(msg))
+	      if n < 0:
+	        raise NegativeNumberError
+	        return n
+	      except ValueError:
+	        print("Recuerde, debe ser un número entero válido.")
+	      except NegativeNumberError as e:
+	        print(e)
+	    return n
+	
+	#Dado que el ejercicio retorna la mayor suma entre dos elementos consecutivos, es necesario verificar que al menos se ingresen 2 números
+	def create_list():
+	    lista=ask_num("¿Cuántos números va a ingresar? ")  
+	    while lista<2:
+	        print("Debe ingresar al menos 2 números.")
+	        lista=ask_num("¿Cuántos números va a ingresar?: ")
+	    li = []
+	    for x in range(lista):
+	        num=ask_num(f"Número # {x+1}: ")
+	        li.append(num)
+	    return li
+	
+	#Se recorre la lista tomando los primeros dos elementos. Si existen una suma de otros dos números mayor que la anterior, se reeemplaza.
+	#La función devuelve los dos números y su respectiva suma
+	def check_sum(li):
+	    i=li[0]+li[1]
+	    num1=li[0]
+	    num2=li[1]
+	    for x in range(len(li)-1):
+	        suma=li[x]+li[x+1]
+	        if suma>i:
+	            i=suma
+	            num1=li[x]
+	            num2=li[x+1]
+	    return (i, num1, num2)
+	
+	def give_info(info):
+	    print("La mayor suma encontrada corresponde a ", info[0],", la cual resulta de los números", info[1], "y", info[2], ".")
+	#Se agrupa todo en un main
+	def main():
+	    initial_msg()
+	    li = create_list()
+	    info = check_sum(li)
+	    give_info(info)
+	    final_msg()
+	main()
 ```
+
 <p>
 5. Escribir una función que reciba una lista de string y retorne unicamente aquellos elementos que tengan los mismos caracteres. e.g. entrada: ["amor", "roma", "perro"], salida ["amor", "roma"]
 </p>
 
 ```python
-#Único error personalizado
-class NegativeNumberError(Exception):
-  def __init__(self,n):
-    super().__init__(f"El número ingresado: ({n}) no es positivo.")
-	
-	#Se define modularmente los mensajes de bienvenida, solicitud de número y string.
-	def initial_msg():
-	    print("Buen día. De una lista de palabras que ingrese, le indico cuáles de ellas contienen las mismas letras.")
-	
-	def final_msg():
-	    print("Programa finalizado, hasta pronto.")
-	
-	def ask_str(msg):
-	    m=str(input(msg))
-	    return m
-	
-#Implementación del error creado previamente.
-def ask_num(msg):
-    while True:
-    try:
-      n = int(input(msg))
-      if n < 0:
-        raise NegativeNumberError
-        return n
-      except ValueError:
-        print("Recuerde, debe ser un número entero válido.")
-      except NegativeNumberError as e:
-        print(e)
-    return n
-	
-	#Se insertan las palabras en una lista
-	def create_list():
-	    lista=ask_num("¿Cuántas palabras va a ingresar? ")
-	    li=[]
-	    for x in range(lista):
-	        w=ask_str(f"Palabra # {x+1}: ")
-	        li.append(w)
-	    return li
-	
-	#Se recorre la lista y palabra. Sorted es la clave, pues ordena los caracteres alfabéticamente y se permite su comparación
-	#Hay doble for, pues recorre todas las posibles combinaciones que existan dentro de la lista
-	#Devuelve la lista de palabras que contienen las mismas letras
-	def check_word(li):
-	    final=[]
-	    l=len(li)
-	    for x in range(l):
-	        for y in range(x+1, len(li)):
-	                if sorted(li[x])==sorted(li[y]):
-	                    final.append((li[x], li[y]))
-	    return final
-	
-	#Se agrupa todo en el main
-	def main():
-	    initial_msg()
-	    lista = create_list()
-	    resultado = check_word(lista)
-	    if len(resultado) == 0:
-	        print("No hay palabras que contengan las mismas letras.")
-	    else:
-	        print("Las palabras que contienen las mismas letras son:")
-	        for par in resultado:
-	            print(par[0], "y", par[1])
-	    final_msg()
-	main()
+	#Único error personalizado
+	class NegativeNumberError(Exception):
+	  def __init__(self,n):
+	    super().__init__(f"El número ingresado: ({n}) no es positivo.")
+		
+		#Se define modularmente los mensajes de bienvenida, solicitud de número y string.
+		def initial_msg():
+		    print("Buen día. De una lista de palabras que ingrese, le indico cuáles de ellas contienen las mismas letras.")
+		
+		def final_msg():
+		    print("Programa finalizado, hasta pronto.")
+		
+		def ask_str(msg):
+		    m=str(input(msg))
+		    return m
+		
+	#Implementación del error creado previamente.
+	def ask_num(msg):
+	    while True:
+	    try:
+	      n = int(input(msg))
+	      if n < 0:
+	        raise NegativeNumberError
+	        return n
+	      except ValueError:
+	        print("Recuerde, debe ser un número entero válido.")
+	      except NegativeNumberError as e:
+	        print(e)
+	    return n
+		
+		#Se insertan las palabras en una lista
+		def create_list():
+		    lista=ask_num("¿Cuántas palabras va a ingresar? ")
+		    li=[]
+		    for x in range(lista):
+		        w=ask_str(f"Palabra # {x+1}: ")
+		        li.append(w)
+		    return li
+		
+		#Se recorre la lista y palabra. Sorted es la clave, pues ordena los caracteres alfabéticamente y se permite su comparación
+		#Hay doble for, pues recorre todas las posibles combinaciones que existan dentro de la lista
+		#Devuelve la lista de palabras que contienen las mismas letras
+		def check_word(li):
+		    final=[]
+		    l=len(li)
+		    for x in range(l):
+		        for y in range(x+1, len(li)):
+		                if sorted(li[x])==sorted(li[y]):
+		                    final.append((li[x], li[y]))
+		    return final
+		
+		#Se agrupa todo en el main
+		def main():
+		    initial_msg()
+		    lista = create_list()
+		    resultado = check_word(lista)
+		    if len(resultado) == 0:
+		        print("No hay palabras que contengan las mismas letras.")
+		    else:
+		        print("Las palabras que contienen las mismas letras son:")
+		        for par in resultado:
+		            print(par[0], "y", par[1])
+		    final_msg()
+		main()
 ```
